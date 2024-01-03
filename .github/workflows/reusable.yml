@@ -1,9 +1,22 @@
 name: Resuable Deploy
 # this workflaw can be called by other workflows via the workflow_call action
-on: workflow_call
+on:
+  workflow_call:
+    inputs:
+      artifact-name:
+        description: The name of the artifact to deploy
+        required: false
+        default: dist
+        type: string
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          name: ${{ inputs.artifact-name }}
+      - name: List files
+        run: ls
       - name: Output information
         run: echo "This is a reusable workflow"
