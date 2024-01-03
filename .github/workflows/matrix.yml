@@ -1,0 +1,24 @@
+name: Matrix Demo
+on: push
+jobs:
+  build:
+    # a matrix will run the same job with different configurations
+    # matrix will tell GitHub Actions to run the job multiple times, once per value in array of operating systems
+    strategy:
+      matrix:
+        node-version: [12, 14, 16, 18]
+        operating-system: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.operating-system }}
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
+        with:
+            # node-version is a variable that will be set by the matrix,
+            # so now the matrix will run the job 3 times, once per value in array of node versions, for each operating system
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: npm ci
+      - name: Build Project
+        run: npm run build
