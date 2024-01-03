@@ -36,8 +36,8 @@ jobs:
         id: run-tests
         run: npm run test
       - name: Upload test report
-      # use steps object to retrieve outcome
-        if: steps.run-tests.outcome == 'failure'
+      # use steps object to retrieve outcome, use failure() to check if it failed (returns true)
+        if: failure() && steps.run-tests.outcome == 'failure'
         uses: actions/upload-artifact@v3
         with:
           name: test-report
