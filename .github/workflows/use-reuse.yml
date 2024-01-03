@@ -73,6 +73,8 @@ jobs:
   deploy:
     needs: build
     uses: ./.github/workflows/reusable.yml
+    with:
+      artifact-name: dist-files
   report:
     # to delay the execution of this job, it needs to be dependent on other jobs
     needs: [lint, deploy]
