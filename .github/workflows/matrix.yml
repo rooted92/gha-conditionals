@@ -4,6 +4,8 @@ jobs:
   build:
     # a matrix will run the same job with different configurations
     # matrix will tell GitHub Actions to run the job multiple times, once per value in array of operating systems
+    # you can use continue-on-error: true to continue running the job even if one of the matrix configurations fails
+    continue-on-error: true
     strategy:
       matrix:
         node-version: [12, 14, 16, 18]
@@ -16,7 +18,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
             # node-version is a variable that will be set by the matrix,
-            # so now the matrix will run the job 3 times, once per value in array of node versions, for each operating system
+            # so now the matrix will run the job 4 times, once per value in array of node versions, for each operating system
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
         run: npm ci
