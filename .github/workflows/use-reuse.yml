@@ -73,8 +73,17 @@ jobs:
   deploy:
     needs: build
     uses: ./.github/workflows/reusable.yml
+    #use width for inputs only
     with:
       artifact-name: dist-files
+      # use secrets to store sensitive information
+  print-deploy-result:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print deploy output
+        run: |
+          echo "${{ needs.deploy.outputs.result }}"  
   report:
     # to delay the execution of this job, it needs to be dependent on other jobs
     needs: [lint, deploy]
