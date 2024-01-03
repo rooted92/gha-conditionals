@@ -1,0 +1,9 @@
+name: Resuable Deploy
+# this workflaw can be called by other workflows via the workflow_call action
+on: workflow_call
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output information
+        run: echo "This is a reusable workflow"
